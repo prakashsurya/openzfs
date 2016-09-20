@@ -101,6 +101,7 @@ dir path=opt/zfs-tests/tests/functional/grow_pool
 dir path=opt/zfs-tests/tests/functional/grow_replicas
 dir path=opt/zfs-tests/tests/functional/history
 dir path=opt/zfs-tests/tests/functional/holes
+dir path=opt/zfs-tests/tests/functional/hole_birth
 dir path=opt/zfs-tests/tests/functional/inheritance
 dir path=opt/zfs-tests/tests/functional/inuse
 dir path=opt/zfs-tests/tests/functional/large_files
