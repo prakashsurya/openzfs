@@ -26,7 +26,7 @@
 # 2. Try clearing the label on data and log devices.
 # 3. Add auxilary (cache/spare) vdevs.
 # 4. Try clearing the label on auxilary vdevs.
-# 5. Check that zpool labelclear will return non-zero and 
+# 5. Check that zpool labelclear will return non-zero and
 #    labels are intact.
 
 verify_runnable "global"
@@ -40,7 +40,7 @@ log_onexit cleanup
 log_assert "zpool labelclear will fail on all vdevs of imported pool"
 
 # Create simple pool, skip any mounts
-log_must $ZPOOL create -O mountpoint=none -f $TESTPOOL $disk1 log $disk2
+log_must zpool create -O mountpoint=none -f $TESTPOOL $disk1 log $disk2
 
 # Check that labelclear [-f] will fail on ACTIVE pool vdevs
 log_mustnot $LABELCLEAR $disk1
@@ -55,12 +55,12 @@ log_must $LABELREAD $disk2
 # Add a cache/spare to the pool, check that labelclear [-f] will fail
 # on the vdev and will succeed once it's removed from pool config
 for vdevtype in "cache" "spare"; do
-	log_must $ZPOOL add $TESTPOOL $vdevtype $disk3
+	log_must zpool add $TESTPOOL $vdevtype $disk3
 	log_mustnot $LABELCLEAR $disk3
 	log_must $LABELREAD $disk3
 	log_mustnot $LABELCLEAR -f $disk3
 	log_must $LABELREAD $disk3
-	log_must $ZPOOL remove $TESTPOOL $disk3
+	log_must zpool remove $TESTPOOL $disk3
 	log_must $LABELCLEAR $disk3
 	log_mustnot $LABELREAD $disk3
 done

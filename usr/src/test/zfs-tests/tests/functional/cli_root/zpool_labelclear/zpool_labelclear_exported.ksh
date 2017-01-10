@@ -43,13 +43,13 @@ log_assert "zpool labelclear will fail on ACTIVE vdevs of exported pool and" \
 
 for vdevtype in "" "cache" "spare"; do
 	# Create simple pool, skip any mounts
-	log_must $ZPOOL create -O mountpoint=none -f $TESTPOOL $disk1 log $disk2
+	log_must zpool create -O mountpoint=none -f $TESTPOOL $disk1 log $disk2
 	# Add auxilary vdevs (cache/spare)
 	if [[ -n $vdevtype ]]; then
-		log_must $ZPOOL add $TESTPOOL $vdevtype $disk3
+		log_must zpool add $TESTPOOL $vdevtype $disk3
 	fi
 	# Export the pool
-	log_must $ZPOOL export $TESTPOOL
+	log_must zpool export $TESTPOOL
 
 	# Check that labelclear will fail without -f
 	log_mustnot $LABELCLEAR $disk1
