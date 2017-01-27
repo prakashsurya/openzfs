@@ -52,11 +52,11 @@ test_fs_setup_7176 $POOL $POOL2
 sendfs=$POOL/sendfs
 recvfs=$POOL2/recvfs
 
-log_must eval "$ZFS send $sendfs@snap1 > $BACKDIR/pool-snap1"
-log_must eval "$ZFS receive -F $recvfs < $BACKDIR/pool-snap1"
+log_must eval "zfs send $sendfs@snap1 > $BACKDIR/pool-snap1"
+log_must eval "zfs receive -F $recvfs < $BACKDIR/pool-snap1"
 
-log_must eval "$ZFS send -i $sendfs@snap1 $sendfs@snap2 > $BACKDIR/pool-snap1-snap2"
-log_must eval "$ZFS receive $recvfs < $BACKDIR/pool-snap1-snap2"
+log_must eval "zfs send -i $sendfs@snap1 $sendfs@snap2 > $BACKDIR/pool-snap1-snap2"
+log_must eval "zfs receive $recvfs < $BACKDIR/pool-snap1-snap2"
 
 log_must cmp_md5s /$sendfs/file1 /$recvfs/file1
 

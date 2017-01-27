@@ -40,6 +40,6 @@ else
 	cleanup_pool $POOL
 	cleanup_pool $POOL2
 fi
-log_must $RM -rf $BACKDIR $TESTDIR
+log_must rm -rf $BACKDIR $TESTDIR
 
 log_pass
