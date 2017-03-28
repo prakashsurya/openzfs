@@ -34,5 +34,3 @@ log_must ppriv -s EIP=basic -e \
 log_must ${DIR}/zfstest-report.py results.txt
 
 exit 0
-
-# vim: tabstop=4 shiftwidth=4 expandtab textwidth=72 colorcolumn=80

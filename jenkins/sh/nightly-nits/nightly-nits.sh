@@ -30,5 +30,3 @@ BASE=${BASE_COMMIT:-'HEAD^'}
 log env -i ksh93 bldenv.sh -d "illumos.sh" -c "git nits -b '$BASE'" 2>&1
 
 exit 0
-
-# vim: tabstop=4 shiftwidth=4 expandtab textwidth=72 colorcolumn=80

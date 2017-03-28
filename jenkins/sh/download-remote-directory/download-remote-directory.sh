@@ -23,5 +23,3 @@ log_must popd >/dev/null
 ssh_log_must test -d "$REMOTE_DIRECTORY"
 
 ssh_fetch_remote_directory "$REMOTE_DIRECTORY" >"$LOCAL_FILE"
-
-# vim: tabstop=4 shiftwidth=4 noexpandtab textwidth=72 colorcolumn=80

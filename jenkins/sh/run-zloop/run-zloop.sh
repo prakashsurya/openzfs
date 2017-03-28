@@ -30,5 +30,3 @@ fi
 log_must tail -n 30 ztest.out
 
 exit $result
-
-# vim: tabstop=4 shiftwidth=4 expandtab textwidth=72 colorcolumn=80

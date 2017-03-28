@@ -14,5 +14,3 @@ VOL_ID=$(log_must aws ec2 describe-snapshots --snapshot-ids "$SNAP_ID" \
 
 log_must aws ec2 deregister-image --image-id "$IMAGE_ID"
 log_must aws ec2 delete-snapshot --snapshot-id "$SNAP_ID"
-
-# vim: tabstop=4 shiftwidth=4 expandtab textwidth=72 colorcolumn=80

@@ -110,5 +110,3 @@ function ssh_fetch_remote_file() {
 	{ ssh_log_must "cat $REMOTE_FILE" \
 		| pv -fi 15 2>&1 1>&3 | stdbuf -oL -eL tr '\r' '\n' >&2; } 3>&1
 }
-
-# vim: tabstop=4 shiftwidth=4 expandtab textwidth=72 colorcolumn=80

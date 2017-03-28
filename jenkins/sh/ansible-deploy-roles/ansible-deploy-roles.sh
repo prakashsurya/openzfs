@@ -53,5 +53,3 @@ log_must cat playbook.yml
 
 log_must ansible-playbook -vvvv -i inventory.txt \
 	--extra-vars="$EXTRA_VARS" playbook.yml
-
-# vim: tabstop=4 shiftwidth=4 noexpandtab textwidth=72 colorcolumn=80

@@ -69,5 +69,3 @@ log_must sleep 10
 aws_wait_for_instance_state "$INSTANCE_ID" "running"
 
 log_must echo "$INSTANCE_ID"
-
-# vim: tabstop=4 shiftwidth=4 expandtab textwidth=72 colorcolumn=80

@@ -28,5 +28,3 @@ function vault_read_aws_secret_key() {
 	[[ -z "$VAULT_TOKEN" ]] && vault_setup_environment
 	vault read -field=value secret/openzfsci/aws/secret-key
 }
-
-# vim: tabstop=4 shiftwidth=4 expandtab textwidth=72 colorcolumn=80

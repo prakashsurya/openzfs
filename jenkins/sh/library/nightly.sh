@@ -94,5 +94,3 @@ function mail_msg_is_clean() {
 
 	return 0
 }
-
-# vim: tabstop=4 shiftwidth=4 expandtab textwidth=72 colorcolumn=80

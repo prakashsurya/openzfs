@@ -15,5 +15,3 @@ REPO="${OPENZFS_DIRECTORY}/packages/i386/nightly"
 log_must sudo "${ONU}" -t "openzfs-nightly" -d "${REPO}"
 
 exit 0
-
-# vim: tabstop=4 shiftwidth=4 expandtab textwidth=72 colorcolumn=80

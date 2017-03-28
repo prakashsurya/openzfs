@@ -24,5 +24,3 @@ log_must popd >/dev/null
 ssh_log_must "test \$(ls -1d $REMOTE_FILE | wc -l) == 1"
 
 ssh_fetch_remote_file "$REMOTE_FILE" >"$LOCAL_FILE"
-
-# vim: tabstop=4 shiftwidth=4 noexpandtab textwidth=72 colorcolumn=80

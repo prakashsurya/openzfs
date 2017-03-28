@@ -153,5 +153,3 @@ log_must mail_msg_is_clean "$OPENZFS_DIRECTORY" "cstyle/hdrchk errors" "Find cor
 log_must mail_msg_is_clean "$OPENZFS_DIRECTORY" "Validating manifests against proto area" "Check ELF runtime attributes"
 
 exit 0
-
-# vim: tabstop=4 shiftwidth=4 expandtab textwidth=72 colorcolumn=80

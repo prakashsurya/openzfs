@@ -56,5 +56,3 @@ function check_env() {
 	done
 	return 0
 }
-
-# vim: tabstop=4 shiftwidth=4 expandtab textwidth=72 colorcolumn=80
