@@ -10,7 +10,7 @@ log_must cd "$OPENZFS_DIRECTORY"
 
 ONU="${OPENZFS_DIRECTORY}/usr/src/tools/scripts/onu"
 REPO="${OPENZFS_DIRECTORY}/packages/i386/nightly"
-[[ "$INSTALL_DEBUG" = "yes" ]] || REPO="${REPO}-nd"
+[[ "$INSTALL_DEBUG" == "yes" ]] || REPO="${REPO}-nd"
 
 log_must sudo "${ONU}" -t "openzfs-nightly" -d "${REPO}"
 

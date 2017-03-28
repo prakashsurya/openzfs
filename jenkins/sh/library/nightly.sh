@@ -2,13 +2,12 @@
 
 source ${JENKINS_DIRECTORY}/sh/library/common.sh
 
-function __echo_jenkins_helper_script
-{
-    local build_mail
+function __echo_jenkins_helper_script() {
+	local build_mail
 
-    build_mail=$1
+	build_mail=$1
 
-    cat <<EOF
+	cat <<EOF
 #!/bin/bash
 #
 # Files created by nightly.sh
@@ -19,7 +18,7 @@ mail_msg_file="\$TMPDIR/mail_msg"
 
 cat \$build_time \$build_environ_file \$mail_msg_file >"$build_mail"
 EOF
-    return 0
+	return 0
 }
 
 #
@@ -30,52 +29,51 @@ EOF
 # to anyone interested in the results of the build. The exit return status
 # of this function is the same as the exit status of the nightly script.
 #
-function nightly_run
-{
-    local nightly=$1
-    local build_dir=$2
-    local envfile=$3
+function nightly_run() {
+	local nightly=$1
+	local build_dir=$2
+	local envfile=$3
 
-    local build_pid=$$
+	local build_pid=$$
 
-    #
-    # We do not want to let the nightly script send mail, but we do want
-    # to mimic the mail_msg sent by the nightly script. Rather than try
-    # to find the mail_msg file in the log directory once the build is
-    # finished we use the POST_BUILD hook in the nighly script to assemble
-    # our own copy of the mail message in the build directory.
-    #
-    local jenkins_helper="$build_dir/jenkins_helper.sh"
-    log_must __echo_jenkins_helper_script \
-            "$build_dir/mail_msg" >"$jenkins_helper"
-    log_must chmod +x "$jenkins_helper"
+	#
+	# We do not want to let the nightly script send mail, but we do want
+	# to mimic the mail_msg sent by the nightly script. Rather than try
+	# to find the mail_msg file in the log directory once the build is
+	# finished we use the POST_BUILD hook in the nighly script to assemble
+	# our own copy of the mail message in the build directory.
+	#
+	local jenkins_helper="$build_dir/jenkins_helper.sh"
+	log_must __echo_jenkins_helper_script \
+		"$build_dir/mail_msg" >"$jenkins_helper"
+	log_must chmod +x "$jenkins_helper"
 
-    #
-    # The LOCKNAME defined in the environment file should normally not
-    # be changed, but we set it to a predicatble value because it is
-    # actually a symlink to a file whose name ends with the PID of
-    # the build process, which we use to identify the build's temp
-    # directory later on.
-    #
-    local lockname="jenkins-$build_pid-nightly.lock"
+	#
+	# The LOCKNAME defined in the environment file should normally not
+	# be changed, but we set it to a predicatble value because it is
+	# actually a symlink to a file whose name ends with the PID of
+	# the build process, which we use to identify the build's temp
+	# directory later on.
+	#
+	local lockname="jenkins-$build_pid-nightly.lock"
 
-    log_must nightly_env_set_var "LOCKNAME" "$lockname"
-    log_must nightly_env_set_var "POST_NIGHTLY" "$jenkins_helper"
+	log_must nightly_env_set_var "LOCKNAME" "$lockname"
+	log_must nightly_env_set_var "POST_NIGHTLY" "$jenkins_helper"
 
-    log env -i time "$nightly" "$envfile" &
-    local nightly_pid=$!
+	log env -i time "$nightly" "$envfile" &
+	local nightly_pid=$!
 
-    sleep 10
-    local nightly_tmpdir=/tmp/nightly.tmpdir.$(readlink -f "/tmp/$lockname" | \
-            sed -E 's@.*\.([0-9]+)@\1@') || die "could not look up tmpdir"
-    tail -f $nightly_tmpdir/mail_msg &
-    local tail_pid=$!
+	sleep 10
+	local nightly_tmpdir=/tmp/nightly.tmpdir.$(readlink -f "/tmp/$lockname" \
+		| sed -E 's@.*\.([0-9]+)@\1@') || die "could not look up tmpdir"
+	tail -f $nightly_tmpdir/mail_msg &
+	local tail_pid=$!
 
-    wait $nightly_pid
-    local result=$?
-    kill $tail_pid
+	wait $nightly_pid
+	local result=$?
+	kill $tail_pid
 
-    return $result
+	return $result
 }
 
 #
@@ -84,18 +82,17 @@ function nightly_run
 # section between the given lines is empty, this returns 0, otherwise
 # it returns non-zero. If the start line does not exist always returns 0.
 #
-function mail_msg_is_clean
-{
-    local build_dir="$1"
-    local start="==== $(echo "$2" | sed "s@/@\\\\/@") ===="
-    local end="==== $(echo "$3" | sed "s@/@\\\\/@") ===="
+function mail_msg_is_clean() {
+	local build_dir="$1"
+	local start="==== $(echo "$2" | sed "s@/@\\\\/@") ===="
+	local end="==== $(echo "$3" | sed "s@/@\\\\/@") ===="
 
-    if [[ ! -z "$(sed -n "/^$start\$/,/^$end\$/p" $build_dir/mail_msg | \
-            sed -e "/^$start\$/d" -e "/^$end\$/d" -e "/^$/d")" ]]; then
-        return 1
-    fi
+	if [[ ! -z "$(sed -n "/^$start\$/,/^$end\$/p" $build_dir/mail_msg \
+		| sed -e "/^$start\$/d" -e "/^$end\$/d" -e "/^$/d")" ]]; then
+		return 1
+	fi
 
-    return 0
+	return 0
 }
 
 # vim: tabstop=4 shiftwidth=4 expandtab textwidth=72 colorcolumn=80

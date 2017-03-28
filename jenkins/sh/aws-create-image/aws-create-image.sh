@@ -8,9 +8,9 @@ check_env REGION INSTANCE_ID
 aws_setup_environment "$REGION"
 
 IMAGE_ID=$(log_must aws ec2 create-image \
-    --instance-id "$INSTANCE_ID" \
-    --name "$INSTANCE_ID" | \
-    jq -M -r .ImageId)
+	--instance-id "$INSTANCE_ID" \
+	--name "$INSTANCE_ID" \
+	| jq -M -r .ImageId)
 
 aws_wait_for_image_state "$IMAGE_ID" "available"
 

@@ -8,7 +8,7 @@ check_env REGION IMAGE_ID INSTANCE_TYPE ADD_DISKS
 aws_setup_environment "$REGION"
 
 if [[ "$ADD_DISKS" == 'yes' ]]; then
-    log_must cat > block-device-mappings.json <<-EOF
+	log_must cat >block-device-mappings.json <<-EOF
 	[{
 	    "DeviceName": "/dev/xvdb",
 	    "Ebs": {
@@ -36,7 +36,7 @@ if [[ "$ADD_DISKS" == 'yes' ]]; then
 	}]
 	EOF
 else
-    log_must cat > block-device-mappings.json <<-EOF
+	log_must cat >block-device-mappings.json <<-EOF
 	[]
 	EOF
 fi
@@ -50,12 +50,12 @@ fi
 log_must cat block-device-mappings.json >&2
 
 INSTANCE_ID=$(log_must aws ec2 run-instances \
-    --image-id "$IMAGE_ID" \
-    --count 1 \
-    --instance-type "$INSTANCE_TYPE" \
-    --block-device-mappings file://block-device-mappings.json \
-    --associate-public-ip-address | \
-    jq -M -r .Instances[0].InstanceId)
+	--image-id "$IMAGE_ID" \
+	--count 1 \
+	--instance-type "$INSTANCE_TYPE" \
+	--block-device-mappings file://block-device-mappings.json \
+	--associate-public-ip-address \
+	| jq -M -r .Instances[0].InstanceId)
 
 #
 # This is a hack, but we've seen instances where after calling

@@ -29,7 +29,7 @@ log_must sudo diskinfo
 log_must echo "$DISKS"
 
 log_must ppriv -s EIP=basic -e \
-    /opt/zfs-tests/bin/zfstest -c $RUNFILE 2>&1 | tee results.txt
+	/opt/zfs-tests/bin/zfstest -c $RUNFILE 2>&1 | tee results.txt
 
 log_must ${DIR}/zfstest-report.py results.txt
 

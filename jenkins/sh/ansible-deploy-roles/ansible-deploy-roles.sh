@@ -10,19 +10,19 @@ aws_setup_environment "$REGION"
 
 log_must cd "$JENKINS_DIRECTORY/ansible"
 
-HOST=$(log_must aws ec2 describe-instances --instance-ids "$INSTANCE_ID" | \
-    jq -M -r .Reservations[0].Instances[0].PublicIpAddress)
+HOST=$(log_must aws ec2 describe-instances --instance-ids "$INSTANCE_ID" \
+	| jq -M -r .Reservations[0].Instances[0].PublicIpAddress)
 
-log_must cat > inventory.txt <<EOF
+log_must cat >inventory.txt <<EOF
 $HOST ansible_ssh_user=root ansible_ssh_pass=root
 EOF
 
-log_must cat > playbook.yml <<EOF
+log_must cat >playbook.yml <<EOF
 ---
 EOF
 
 if [[ "$WAIT_FOR_SSH" == "yes" ]]; then
-	log_must cat >> playbook.yml <<-EOF
+	log_must cat >>playbook.yml <<-EOF
 	- hosts: localhost
 	  gather_facts: no
 	  tasks:
@@ -34,13 +34,13 @@ if [[ "$WAIT_FOR_SSH" == "yes" ]]; then
 	EOF
 fi
 
-log_must cat >> playbook.yml <<EOF
+log_must cat >>playbook.yml <<EOF
 - hosts: $HOST
   roles:
 EOF
 
 for ROLE in $ROLES; do
-	log_must cat >> playbook.yml <<-EOF
+	log_must cat >>playbook.yml <<-EOF
 	  - $ROLE
 	EOF
 done

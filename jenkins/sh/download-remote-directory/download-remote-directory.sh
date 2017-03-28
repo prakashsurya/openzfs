@@ -8,8 +8,8 @@ check_env REGION INSTANCE_ID REMOTE_DIRECTORY LOCAL_FILE
 
 aws_setup_environment "$REGION"
 
-HOST=$(log_must aws ec2 describe-instances --instance-ids "$INSTANCE_ID" | \
-    jq -M -r .Reservations[0].Instances[0].PublicIpAddress)
+HOST=$(log_must aws ec2 describe-instances --instance-ids "$INSTANCE_ID" \
+	| jq -M -r .Reservations[0].Instances[0].PublicIpAddress)
 
 log_must pushd "$JENKINS_DIRECTORY/ansible" >/dev/null
 ssh_wait_for inventory.txt playbook.yml
@@ -22,6 +22,6 @@ log_must popd >/dev/null
 #
 ssh_log_must test -d "$REMOTE_DIRECTORY"
 
-ssh_fetch_remote_directory "$REMOTE_DIRECTORY" > "$LOCAL_FILE"
+ssh_fetch_remote_directory "$REMOTE_DIRECTORY" >"$LOCAL_FILE"
 
 # vim: tabstop=4 shiftwidth=4 noexpandtab textwidth=72 colorcolumn=80
