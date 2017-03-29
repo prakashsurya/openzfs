@@ -139,16 +139,16 @@ log_must nightly_env_set_var "ENABLE_SMB_PRINTING" "#"
 
 log_must cp usr/src/tools/scripts/nightly.sh .
 log_must chmod +x nightly.sh
-log_must nightly_run ./nightly.sh "$OPENZFS_DIRECTORY" "illumos.sh"
+log nightly_run ./nightly.sh "$OPENZFS_DIRECTORY" "illumos.sh"
 
-log_must mail_msg_is_clean "$OPENZFS_DIRECTORY" "Build errors" "Build warnings"
-log_must mail_msg_is_clean "$OPENZFS_DIRECTORY" "Build warnings" "Elapsed build time"
-log_must mail_msg_is_clean "$OPENZFS_DIRECTORY" "Build errors (non-DEBUG)" "Build warnings (non-DEBUG)"
-log_must mail_msg_is_clean "$OPENZFS_DIRECTORY" "Build warnings (non-DEBUG)" "Elapsed build time (non-DEBUG)"
-log_must mail_msg_is_clean "$OPENZFS_DIRECTORY" "Build errors (DEBUG)" "Build warnings (DEBUG)"
-log_must mail_msg_is_clean "$OPENZFS_DIRECTORY" "Build warnings (DEBUG)" "Elapsed build time (DEBUG)"
-log_must mail_msg_is_clean "$OPENZFS_DIRECTORY" "lint warnings src" "lint noise differences src"
-log_must mail_msg_is_clean "$OPENZFS_DIRECTORY" "cstyle/hdrchk errors" "Find core files"
-log_must mail_msg_is_clean "$OPENZFS_DIRECTORY" "Validating manifests against proto area" "Check ELF runtime attributes"
+log mail_msg_is_clean "$OPENZFS_DIRECTORY" "Build errors" "Build warnings"
+log mail_msg_is_clean "$OPENZFS_DIRECTORY" "Build warnings" "Elapsed build time"
+log mail_msg_is_clean "$OPENZFS_DIRECTORY" "Build errors (non-DEBUG)" "Build warnings (non-DEBUG)"
+log mail_msg_is_clean "$OPENZFS_DIRECTORY" "Build warnings (non-DEBUG)" "Elapsed build time (non-DEBUG)"
+log mail_msg_is_clean "$OPENZFS_DIRECTORY" "Build errors (DEBUG)" "Build warnings (DEBUG)"
+log mail_msg_is_clean "$OPENZFS_DIRECTORY" "Build warnings (DEBUG)" "Elapsed build time (DEBUG)"
+log mail_msg_is_clean "$OPENZFS_DIRECTORY" "lint warnings src" "lint noise differences src"
+log mail_msg_is_clean "$OPENZFS_DIRECTORY" "cstyle/hdrchk errors" "Find core files"
+log mail_msg_is_clean "$OPENZFS_DIRECTORY" "Validating manifests against proto area" "Check ELF runtime attributes"
 
 exit 0
