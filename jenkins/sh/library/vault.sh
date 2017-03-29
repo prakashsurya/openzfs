@@ -53,3 +53,23 @@ function vault_read_jenkins_password() {
 	[[ -z "$VAULT_TOKEN" ]] && vault_setup_environment
 	vault read -field=value secret/openzfsci/jenkins/password
 }
+
+function vault_read_github_user() {
+	[[ -z "$VAULT_TOKEN" ]] && vault_setup_environment
+	vault read -field=value secret/openzfsci/github/user
+}
+
+function vault_read_github_token() {
+	[[ -z "$VAULT_TOKEN" ]] && vault_setup_environment
+	vault read -field=value secret/openzfsci/github/token
+}
+
+function vault_read_github_public_key() {
+	[[ -z "$VAULT_TOKEN" ]] && vault_setup_environment
+	vault read -field=value secret/openzfsci/github/public-key
+}
+
+function vault_read_github_private_key() {
+	[[ -z "$VAULT_TOKEN" ]] && vault_setup_environment
+	vault read -field=value secret/openzfsci/github/private-key
+}
