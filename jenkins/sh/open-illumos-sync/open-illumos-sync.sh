@@ -87,7 +87,7 @@ log_must git config user.name "zettabot"
 # Additionally, if the repository already exists under the user's GitHub
 # account, only the git remote will be added to point to it.
 #
-log_must hub fork
+#log_must hub fork
 
 log_must git fetch "$OPENZFS_REMOTE"
 log_must git fetch "$ILLUMOS_REMOTE"
