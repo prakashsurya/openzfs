@@ -13,10 +13,6 @@
  * Copyright (c) 2017 by Delphix. All rights reserved.
  */
 
-env.REGION = 'us-east-1'
-env.BASE_IMAGE_ID = 'ami-409f1256'
-env.MEDIA_DIRECTORY = '/rpool/dc/media'
-
 currentBuild.displayName = "#${env.BUILD_NUMBER} ${OPENZFS_REPOSITORY} ${OPENZFS_BRANCH}"
 
 node('master') {
@@ -31,27 +27,31 @@ node('master') {
     }
 
     try {
-        stage('create instance') {
-            env.INSTANCE_ID = misc.shscript('aws-run-instances', true, [
-                ['REGION', env.REGION],
-                ['IMAGE_ID', env.BASE_IMAGE_ID],
-                ['INSTANCE_TYPE', 'c4.xlarge'],
-                ['ADD_DISKS_FOR', 'none']
-            ]).trim()
-        }
+// TODO
+//        stage('create instance') {
+//            env.INSTANCE_ID = misc.shscript('aws-run-instances', true, [
+//                ['REGION', env.REGION],
+//                ['IMAGE_ID', env.BASE_IMAGE_ID],
+//                ['INSTANCE_TYPE', 'c4.xlarge'],
+//                ['ADD_DISKS_FOR', 'none']
+//            ]).trim()
+//        }
+//
+//        stage('configure instance') {
+//            if (!env.INSTANCE_ID) {
+//                error('Empty INSTANCE_ID environment variable.')
+//            }
+//
+//            misc.shscript('ansible-deploy-roles', false, [
+//                ['REGION', env.REGION],
+//                ['INSTANCE_ID', env.INSTANCE_ID],
+//                ['ROLES', 'openzfs.build-slave openzfs.jenkins-slave'],
+//                ['WAIT_FOR_SSH', 'yes']
+//            ])
+//        }
 
-        stage('configure instance') {
-            if (!env.INSTANCE_ID) {
-                error('Empty INSTANCE_ID environment variable.')
-            }
-
-            misc.shscript('ansible-deploy-roles', false, [
-                ['REGION', env.REGION],
-                ['INSTANCE_ID', env.INSTANCE_ID],
-                ['ROLES', 'openzfs.build-slave openzfs.jenkins-slave'],
-                ['WAIT_FOR_SSH', 'yes']
-            ])
-        }
+        // TODO
+        env.INSTANCE_ID = 'i-05da72084fa8255fb'
 
         node(env.INSTANCE_ID) {
             stage('unstash repository') {
@@ -84,14 +84,15 @@ node('master') {
             archive(includes: "${script}.tar.xz")
         }
     } finally {
-        stage('terminate instance') {
-            if (env.INSTANCE_ID) {
-                misc.shscript('aws-terminate-instances', false, [
-                    ['REGION', env.REGION],
-                    ['INSTANCE_ID', env.INSTANCE_ID]
-                ])
-            }
-        }
+// TODO
+//        stage('terminate instance') {
+//            if (env.INSTANCE_ID) {
+//                misc.shscript('aws-terminate-instances', false, [
+//                    ['REGION', env.REGION],
+//                    ['INSTANCE_ID', env.INSTANCE_ID]
+//                ])
+//            }
+//        }
     }
 }
 

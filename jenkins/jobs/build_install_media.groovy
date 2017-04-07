@@ -17,10 +17,14 @@ pipelineJob('build-install-media') {
     quietPeriod(0)
     concurrentBuild(true)
 
-    parameters {
-        stringParam('OPENZFS_REPOSITORY', System.getenv('OPENZFS_REPOSITORY'))
-        stringParam('OPENZFS_BRANCH', System.getenv('OPENZFS_BRANCH'))
-        stringParam('OPENZFS_DIRECTORY', 'openzfs')
+    environmentVariables {
+        env('REGION', 'us-east-1')
+        env('BASE_IMAGE_ID', 'ami-409f1256')
+        env('MEDIA_DIRECTORY', '/rpool/dc/media')
+
+        env('OPENZFS_REPOSITORY', System.getenv('OPENZFS_REPOSITORY'))
+        env('OPENZFS_BRANCH', System.getenv('OPENZFS_BRANCH'))
+        env('OPENZFS_DIRECTORY', 'openzfs')
     }
 
     definition {
