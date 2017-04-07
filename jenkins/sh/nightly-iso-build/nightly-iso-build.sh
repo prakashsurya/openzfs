@@ -15,7 +15,7 @@
 # Copyright (c) 2017 by Delphix. All rights reserved.
 #
 
-source ${JENKINS_DIRECTORY}/common.sh
+source ${JENKINS_DIRECTORY}/sh/library/common.sh
 
 check_env OPENZFS_DIRECTORY INSTALL_DEBUG
 
