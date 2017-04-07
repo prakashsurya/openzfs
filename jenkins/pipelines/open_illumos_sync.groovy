@@ -31,7 +31,7 @@ node('master') {
                                        url: "https://github.com/${env.ILLUMOS_REPOSITORY}"],
                                       [name: env.OPENZFS_REMOTE,
                                        url: "https://github.com/${env.OPENZFS_REPOSITORY}"]],
-                  branches: [[name: env.OPENZFS_BRANCH]]])
+                  branches: [[name: "${env.OPENZFS_REMOTE}/${env.OPENZFS_BRANCH}"]]])
         misc = load('jenkins/pipelines/miscellaneous.groovy')
     }
 
