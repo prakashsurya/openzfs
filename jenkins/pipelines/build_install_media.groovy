@@ -54,9 +54,9 @@ node('master') {
         env.INSTANCE_ID = 'i-05da72084fa8255fb'
 
         node(env.INSTANCE_ID) {
-            stage('unstash repository') {
-                unstash(name: 'openzfs')
-            }
+//            stage('unstash repository') {
+//                unstash(name: 'openzfs')
+//            }
 
 //            stage('build repository') {
 //                misc.shscript('nightly-build', false, [
