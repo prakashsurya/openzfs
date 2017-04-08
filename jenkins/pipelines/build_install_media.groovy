@@ -58,13 +58,13 @@ node('master') {
                 unstash(name: 'openzfs')
             }
 
-            stage('build repository') {
-                misc.shscript('nightly-build', false, [
-                    ['BUILD_NONDEBUG', 'yes'],
-                    ['BUILD_DEBUG', 'no'],
-                    ['RUN_LINT', 'no']
-                ])
-            }
+//            stage('build repository') {
+//                misc.shscript('nightly-build', false, [
+//                    ['BUILD_NONDEBUG', 'yes'],
+//                    ['BUILD_DEBUG', 'no'],
+//                    ['RUN_LINT', 'no']
+//                ])
+//            }
 
             stage('build install media') {
                 misc.shscript('nightly-iso-build', false, [
