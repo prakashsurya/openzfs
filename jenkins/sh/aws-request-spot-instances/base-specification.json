@@ -1,0 +1,11 @@
+{
+  "NetworkInterfaces": [{
+    "DeviceIndex": 0,
+    "Groups": ["sg-418b1e3e"],
+    "AssociatePublicIpAddress": true,
+    "DeleteOnTermination": true
+  }],
+  "Placement": {
+    "AvailabilityZone": "us-east-1a"
+  }
+}
