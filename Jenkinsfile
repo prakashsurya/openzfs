@@ -142,15 +142,15 @@ node('master') {
 
         stage('run tests') {
             parallel('run libc-tests': {
-                run_test('run-libc-tests', 't2.small', '0.023', 1, 'none', [
+                run_test('run-libc-tests', 'm4.large', '0.100', 1, 'none', [
                     ['RUNFILE', '/opt/libc-tests/runfiles/default.run']
                 ])
             }, 'run os-tests': {
-                run_test('run-os-tests', 't2.small', '0.023', 1, 'none', [
+                run_test('run-os-tests', 'm4.large', '0.100', 1, 'none', [
                     ['RUNFILE', '/opt/os-tests/runfiles/default.run']
                 ])
             }, 'run util-tests': {
-                run_test('run-util-tests', 't2.small', '0.023', 1, 'none', [
+                run_test('run-util-tests', 'm4.large', '0.100', 1, 'none', [
                     ['RUNFILE', '/opt/util-tests/runfiles/default.run']
                 ])
             }, 'run zfs-tests': {
