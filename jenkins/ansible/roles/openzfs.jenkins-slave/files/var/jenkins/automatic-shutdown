@@ -27,7 +27,7 @@
 #
 
 BOOT=$(kstat -n system_misc | awk '/boot_time/ { print $2 }')
-LIMIT=$((12 * 60 * 60))
+LIMIT=$((1 * 60 * 60))
 
 CURRENT=$(date +%s)
 while [[ $CURRENT -lt $((BOOT + LIMIT)) ]]; do
