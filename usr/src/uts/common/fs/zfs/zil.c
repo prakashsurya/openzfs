@@ -2029,7 +2029,7 @@ zil_process_commit_list(zilog_t *zilog)
 		 * or "open".
 		 *
 		 * If its "closed", then no itxs have been committed to
-		 * it, so there's no point in issueing its zio (i.e.
+		 * it, so there's no point in issuing its zio (i.e.
 		 * it's "empty").
 		 *
 		 * If its "open" state, then it contains one or more
@@ -2040,7 +2040,7 @@ zil_process_commit_list(zilog_t *zilog)
 		 *
 		 * 1. Ideally, there will be more ZIL activity occuring
 		 * on the system, such that this function will be
-		 * immeidately called again (not necessarily by the same
+		 * immediately called again (not necessarily by the same
 		 * thread) and this lwb's zio will be issued via
 		 * zil_lwb_commit(). This way, the lwb is guaranteed to
 		 * be "full" when it is issued to disk, and we'll make
