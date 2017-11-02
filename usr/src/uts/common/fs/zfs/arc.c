@@ -303,6 +303,9 @@ int zfs_arc_evict_batch_limit = 10;
 /* number of seconds before growing cache again */
 static int		arc_grow_retry = 60;
 
+/* number of milliseconds before attempting a kmem-cache-reap */
+static int		arc_kmem_cache_reap_retry_ms = 1000;
+
 /* shift of arc_c for calculating overflow limit in arc_get_data_impl */
 int		zfs_arc_overflow_shift = 8;
 
@@ -804,6 +807,7 @@ static int		arc_no_grow;	/* Don't try to grow cache size */
 static hrtime_t		arc_growtime;
 static uint64_t		arc_tempreserve;
 static uint64_t		arc_loaned_bytes;
+static hrtime_t		arc_kmem_cache_reap_time;
 
 typedef struct arc_callback arc_callback_t;
 
@@ -4192,7 +4196,25 @@ arc_reap_cb(void *arg, zthr_t *zthr)
 {
 	int64_t free_memory;
 
-	arc_kmem_reap_now();
+	/*
+	 * Wait at least arc_kmem_cache_reap_retry_ms between
+	 * arc_kmem_reap_now() calls. Without this check it is possible
+	 * to end up in a situation where we spend lots of time reaping
+	 * caches, while we're near arc_c_min.
+	 */
+	if (gethrtime() >= arc_kmem_cache_reap_time) {
+		arc_kmem_cache_reap_time = gethrtime() +
+		    MSEC2NSEC(arc_kmem_cache_reap_retry_ms);
+
+		/*
+		 * We call arc_kmem_reap_now() after determining the
+		 * next value for arc_kmem_cache_reap_time because
+		 * arc_kmem_reap_now() can potentially take minutes to
+		 * return. Thus, we don't want that additional latency
+		 * to impact the value of arc_kmem_cache_reap_time.
+		 */
+		arc_kmem_reap_now();
+	}
 
 	/*
 	 * Reduce the target size as needed to maintain the
