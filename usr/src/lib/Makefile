@@ -677,7 +677,7 @@ libvrrpadm:	libdladm libscf
 libvscan:	libscf libsecdb
 libwanboot:	libresolv2 libdevinfo libinetutil libdhcputil
 libzfs:		libdevid libgen libuutil libadm libavl libefi libidmap \
-		libumem libtsol libzfs_core libfakekernel
+		libumem libtsol libzfs_core
 libzfs_jni:	libdiskmgt libzfs
 libzonecfg:	libuuid libsysevent libsec libbrand libpool libscf libproc \
 		libuutil libbsm libsecdb

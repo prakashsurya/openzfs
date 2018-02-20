@@ -49,7 +49,8 @@ OBJS_COMMON=			\
 	libzfs_pool.o		\
 	libzfs_sendrecv.o	\
 	libzfs_status.o		\
-	libzfs_util.o
+	libzfs_util.o		\
+	utaskq.o
 
 OBJECTS= $(OBJS_COMMON) $(OBJS_SHARED)
 
@@ -70,8 +71,8 @@ INCS += -I../../libc/inc
 C99MODE=	-xc99=%all
 C99LMODE=	-Xc99=%all
 LDLIBS +=	-lc -lm -ldevid -lgen -lnvpair -luutil -lavl -lefi \
-	-ladm -lidmap -ltsol -lmd -lumem -lzfs_core -lcmdutils -lfakekernel
-CPPFLAGS +=	$(INCS) -D_LARGEFILE64_SOURCE=1 -D_REENTRANT -D_TASKQUSER
+	-ladm -lidmap -ltsol -lmd -lumem -lzfs_core -lcmdutils
+CPPFLAGS +=	$(INCS) -D_LARGEFILE64_SOURCE=1 -D_REENTRANT
 $(NOT_RELEASE_BUILD)CPPFLAGS += -DDEBUG
 
 # There's no lint library for zlib, so only include this when building
