@@ -60,8 +60,6 @@ typedef struct utaskq_ent {
 #define	UTQ_NOQUEUE	0x02		/* Do not enqueue if can't dispatch */
 #define	UTQ_FRONT	0x08		/* Queue in front */
 
-extern utaskq_t *system_utaskq;
-
 extern utaskq_t	*utaskq_create(const char *, int, pri_t, int, int, uint_t);
 extern utaskqid_t utaskq_dispatch(utaskq_t *, utask_func_t, void *, uint_t);
 extern void	utaskq_dispatch_ent(utaskq_t *, utask_func_t, void *, uint_t,
