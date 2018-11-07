@@ -170,6 +170,7 @@ else
 	log_must nightly_env_set_var "PERL_VERSION" "5.22"
 	log_must nightly_env_set_var "PERL_PKGVERS" "-522"
 	log_must nightly_env_set_var "BLD_JAVA_8" ""
+	log_must nightly_env_set_var "BUILDPY3" "#"
 fi
 
 log_must nightly_env_set_var "NIGHTLY_OPTIONS" "$NIGHTLY_OPTIONS"
