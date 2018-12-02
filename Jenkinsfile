@@ -91,7 +91,7 @@ node('master') {
                             ['BUILD_VERSION', commit],
                             ['BUILD_NONDEBUG', 'yes'],
                             ['BUILD_DEBUG', 'yes'],
-                            ['RUN_LINT', 'yes']
+                            ['RUN_LINT', 'no']
                         ])
                     }
 
